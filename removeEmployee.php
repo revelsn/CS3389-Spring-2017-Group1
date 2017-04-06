@@ -1,5 +1,19 @@
 <?php
 
+	session_start(); //start the session. if there's already an exisiting session, it will be continued
+	
+	//re-direct to the login page if needed. We're including this file on the login page or the login_submit page, so check to make sure we're not on the login page or we'd have an infinite re-direct
+	//Currently commented out for testing purposes
+/* 	if(!isset($_SESSION['user_id']) && !stristr($_SERVER["PHP_SELF"], 'login'))
+	{
+		header("Location: login.php");
+	}
+	//include the database connection stuff so we don't have to duplicate it everywhere */
+	include 'db_conn.php';
+	if(.$session['Role'] != 3)
+	{}
+
+
 $host = 'localhost';
 			$db   = 'cs3389';
 			$user = 'cs3389';
@@ -29,7 +43,7 @@ $host = 'localhost';
 		}
 		else{
 			try{
-				$sql = "update contacts (role = 2) where VALUES(?) = ID";
+				$sql = "update contacts (role = 1) where VALUES(?) = ID";
 				$conn->prepare($sql)->execute([$_POST['ID']]);
 			}
 			catch(PDOException $e){
