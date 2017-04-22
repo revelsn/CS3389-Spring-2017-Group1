@@ -14,6 +14,29 @@
 					<a class='btn btn-primary' href='addItem.php'><span class="glyphicon glyphicon-plus"></span> Add an item</a>
 				</div>
 			</div>
+			<div class="row">	
+				<div class="col-sm-12">
+					<form class="form-horizontal" action="WorkerInventoryView.php" method="POST">
+					<div class="form-group">
+						<select id="searchtype" name="searchtype">                      
+						<option value="1">--Select Search Type--</option>
+						<option value="name">Name</option>
+						<option value="category">Category</option>
+					</select>
+						
+							<label for="name" class="col-sm-2 control-label">Search Term</label>
+							
+								<input type="text" class="form-control" id="searchterm" name="searchterm" placeholder="">
+								
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-default">Search</button>
+							</div>
+						</div>
+							
+						</div>
+					</form>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-sm-12">
 					<table class="table-hover table-striped table">
@@ -36,8 +59,17 @@
 									PDO::ATTR_EMULATE_PREPARES   => false,
 								];
 								$conn = new PDO($connectionString, $user, $pass, $opt);
+								if (count($_POST) == 0 || $_POST['searchtype'] == 1)
+								{
+									$sql = "SELECT * FROM cs3389.inventory order by name desc";
 								
-								$data = $conn->query('SELECT * FROM cs3389.inventory')->fetchAll();
+								}else
+								{
+									$sql = "SELECT * FROM cs3389.inventory where ".$_POST['searchtype']." 
+									LIKE \"%".$_POST['searchterm']."%\" order by ".$_POST['searchtype']." desc";
+								}	
+								$data = $conn->query($sql)->fetchAll();
+								
 								if(count($data) > 0){
 									foreach($data as $item){
 										echo "<tr>";
