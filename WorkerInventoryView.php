@@ -52,21 +52,14 @@
 						</thead>
 						<tbody>
 							<?PHP
-								$connectionString = "mysql:host=$host;dbname=$db;charset=$charset;port=$port";
-								$opt = [
-									PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-									PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-									PDO::ATTR_EMULATE_PREPARES   => false,
-								];
-								$conn = new PDO($connectionString, $user, $pass, $opt);
 								if (count($_POST) == 0 || $_POST['searchtype'] == 1)
 								{
-									$sql = "SELECT * FROM cs3389.inventory order by name desc";
+									$sql = "SELECT * FROM cs3389.inventory order by name asc";
 								
 								}else
 								{
-									$sql = "SELECT * FROM cs3389.inventory where ".$_POST['searchtype']." 
-									LIKE \"%".$_POST['searchterm']."%\" order by ".$_POST['searchtype']." desc";
+									$sql = "SELECT * FROM inventory where ".$_POST['searchtype']." 
+									LIKE \"%".$_POST['searchterm']."%\" order by ".$_POST['searchtype']." asc";
 								}	
 								$data = $conn->query($sql)->fetchAll();
 								

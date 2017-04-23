@@ -4,13 +4,6 @@
 ?>
 
 	<?PHP
-	$connectionString = "mysql:host=$host;dbname=$db;charset=$charset;port=$port";
-	$opt = [
-		PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-		PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-		PDO::ATTR_EMULATE_PREPARES   => false,
-	];
-	$conn = new PDO($connectionString, $user, $pass, $opt);
 	$formHasBeenPosted = count($_POST) > 0;
 	$formInvalid = false;
 	
