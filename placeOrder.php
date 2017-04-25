@@ -28,20 +28,24 @@
 				try{
 					$sql = "SELECT item_id from inventory where name = \"$value\"";
 					$result = $conn->query($sql);
-					//$result = $stmt->fetch();
-					$item_id = $result['item_id'];
+					foreach($result as $i)
+					{
+						$item_id = $i['item_id'];
+					}
+					
+					
 				}
 				catch(PDOException $e){
 					die($e);
 				}
 				echo "<div>".$item_id."</div>";
-				/*try{
+				try{
 					$sql = "INSERT into order_items (order_id, item_id, quantity) values($order_id, $item_id, ".$_SESSION['orderAmounts'][$key].")";
 					$conn->prepare($sql)->execute();
 				}
 				catch(PDOException $e){
 					die($e);
-				}*/
+				}
 			}
 			
 			echo "<div>Order submitted. Click <a href=\"inventory.php\">here</a> to return to inventory.</div>";
