@@ -54,5 +54,8 @@
 					</div>
 				</div>
 			</form>
+			<div class="col-sm-6 text-right">
+					<a class='btn btn-primary' href='registration.php'><span class="glyphicon glyphicon-plus"></span>Create an account</a>
+				</div>
 		</div>
 	<?php include 'footer.php';?>
