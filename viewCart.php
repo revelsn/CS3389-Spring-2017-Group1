@@ -1,6 +1,6 @@
 <?php
 	include 'header.php';
-	$_SESSION['pageTitle'] = 'View Inventory';
+	$_SESSION['pageTitle'] = 'View Cart';
 ?>
 
 		<div class="container">
@@ -8,10 +8,10 @@
 			
 			<div class="row">
 				<div class="col-sm-6">
-					Inventory
+					Cart
 				</div>
 				<div class="col-sm-6 text-right">
-					<a class='btn btn-primary' href='viewCart.php'><span class="glyphicon glyphicon-plus"></span>Go To Cart</a>
+					<a class='btn btn-primary' href='placeOrder.php'><span class="glyphicon glyphicon-plus"></span>Place Order</a>
 				</div>
 			</div>
 			<div class="row">	
@@ -39,18 +39,61 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
+				<?PHP
+					if(count($_SESSION['orderItems']) > 0)
+					{ 
+					?>
 					<table class="table-hover table-striped table">
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th>Price</th>
-								<!--<th>In Stock</th>-->
-								<th>Category</th>
+								<th>Amount</th>
+								<th>Price Per Item</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<?PHP
+
+							foreach($_SESSION['orderItems'] as $key=>$value)
+							{
+								try{
+								
+									$stmt = $conn->prepare("Select name, price from inventory where name = :itemName");
+
+									/*** bind the parameters ***/
+									$stmt->bindParam(':itemName', $_SESSION['orderItems'][$key], PDO::PARAM_STR);
+
+									/*** execute the prepared statement ***/
+									$stmt->execute();
+
+									/*** check for a result ***/
+									$result = $stmt->fetch();
+								}
+								catch(PDOException $e){
+									die($e);
+								}
+								echo "<tr>";
+								echo "<td>".$_SESSION['orderItems'][$key]."</td>";
+								echo "<td>".$_SESSION['orderAmounts'][$key]."</td>";
+								echo "<td>".$result['price']."</td>";
+								echo "<td><form class=\"form-horizontal\" action=\"removeItem.php\" method=\"POST\">
+										<input type=\"hidden\" id=\"key\" name=\"key\" value=\"".$key."\">
+										<button type=\"submit\" class=\"btn btn-default\">Remove</button>
+									</form></td>"; 
+								echo "<td><form class=\"form-horizontal\" action=\"changeAmount.php\" method=\"POST\">
+										<input type=\"hidden\" id=\"key\" name=\"key\" value=\"".$key."\">
+										<input type=\"hidden\" id=\"name\" name=\"name\" value=\"".$result['name']."\">
+										<input type=\"hidden\" id=\"amount\" name=\"amount\" value=\"".$_SESSION['orderAmounts'][$key]."\">
+										<button type=\"submit\" class=\"btn btn-default\">Change Amount</button>
+									</form></td>";
+								echo "</tr>";
+							}
+							}
+							else
+							{
+							echo "<p>No items in cart</p>";
+							}
 								/*if (count($_POST) == 0 || $_POST['searchtype'] == 1)
 								{
 									$sql = "SELECT * FROM inventory order by name asc";

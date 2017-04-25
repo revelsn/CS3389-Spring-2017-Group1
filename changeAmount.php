@@ -4,21 +4,20 @@
 ?>
 
 	<?PHP
-	$formHasBeenPosted = count($_POST) > 1;
+	$formHasBeenPosted = count($_POST) > 3;
 	$formInvalid = false;
 	
 	if($formHasBeenPosted){
 		//validation and DB update
 		$errors = array();
-		if($_POST['amount'] < 0)
-			$errors[] = "Amount cannot be less than zero";		
+		if($_POST['amount'] <= 0)
+			$errors[] = "Amount must be greater than 0";		
 		
 		if(count($errors) > 0){
 			$formInvalid = true;
 		}
 		else{
-			$_SESSION['orderItems'][count($_SESSION['orderItems'])] = $_POST['name'];
-			$_SESSION['orderAmounts'][count($_SESSION['orderAmounts'])] = $_POST['amount'];
+			$_SESSION['orderAmounts'][$_POST['key']] = $_POST['amount'];
 		}
 	}
 ?>
@@ -27,7 +26,7 @@
 		<div class="container">
 		<?PHP if(!$formHasBeenPosted || $formInvalid){?>
 			<div class="jumbotron">
-				<h3>Enter the amount below:</h3>
+				<h3>Enter the new amount below:</h3>
 			</div>
 			<?PHP
 				if($formInvalid){
@@ -40,7 +39,7 @@
 			?>
 			<div class="row">
 				<div class="col-sm-12">
-					<form class="form-horizontal" action="addToCart.php" method="POST">
+					<form class="form-horizontal" action="changeAmount.php" method="POST">
 						<div class="form-group">
 							<label for="name" class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-offset-2 col-sm-10">
@@ -52,7 +51,8 @@
 							<label for="name" class="col-sm-2 control-label">Amount</label>
 							<div class="col-sm-10">
 								<?echo "<input type=\"hidden\" id=\"beenPosted\" name=\"beenPosted\" value=\"true\">
-								<input type=\"integer\" class=\"form-control\" id=\"amount\" name=\"amount\" placeholder=\"1\">"?>
+								<input type=\"hidden\" id=\"key\" name=\"key\" value=\"".$_POST['key']."\">
+								<input type=\"integer\" class=\"form-control\" id=\"amount\" name=\"amount\" placeholder=\"".$_POST['amount']."\">"?>
 							</div>
 						</div>
 						
@@ -70,7 +70,7 @@
 		<? }else{?>
 			<div class="row">
 				<div class="col-sm-12">
-					<p>The item has been added to your cart. Click <a href="inventory.php">here</a> to go back to the inventory or <a href="viewCart.php">here</a> to go back to your cart.</p>
+					<p>The amount has been changed, click <a href="viewCart.php">here</a> to go back to your cart</p>
 				</div>
 			</div>
 		<? } ?>

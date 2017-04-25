@@ -6,7 +6,7 @@
 		try{
 			$sql = "DELETE FROM inventory WHERE name = ?";
 			$conn->prepare($sql)->execute([$_POST['name']]);
-			echo "<div>Item deleted. Return to <a href=\"WorkerInventoryView.php\">inventory</a>?</div>";
+			echo "<div>Item deleted. Click <a href=\"WorkerInventoryView.php\">here</a> to return to inventory.</div>";
 		}
 		catch(PDOException $e){
 			die($e);
