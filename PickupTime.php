@@ -9,9 +9,32 @@
 	 if($formHasBeenPosted){
 	 $day = $_POST['Day'];
 	 $time = $_POST['Time'];
-	 echo yay;
-		$sql = "UPDATE pickupTime SET Amount = 1 WHERE Day=$day and Time = $time";
+	 $sql = "SELECT * FROM pickupTime WHERE Day=$day and Time = $time";
+	 $data = $conn->query($sql);
+	  foreach($data as $pt){
+	  $amount = $pt['Amount'] + 1;
+	  }
+	   if($amount > "3"){
+		 echo "Selected Date/time is full please try again";
+		 ?>
+		 <div class="col-sm-12">
+			<p>Removed Unsuccessfully, click <a href="PickupTime.php">here</a> to go back</p>
+		 </div>
+		 <?PHP
+	   }
+	  
+	   else{
+	   
+		$sql = "UPDATE pickupTime SET Amount= $amount WHERE Day=$day and Time = $time";
 		$conn->query($sql);
+		?>
+		
+				<div class="col-sm-12">
+					<p>Removed successfully, click <a href="home.php">here</a> to go to home</p>
+				</div>
+			
+		<?PHP
+		}
 	  }
 ?>
 <div class="container">
@@ -57,10 +80,6 @@
 	</div>
 </div>
 <? }else{?>
-			<div class="row">
-				<div class="col-sm-12">
-					<p>Removed successfully, click <a href="home.php">here</a> to go to home</p>
-				</div>
-			</div>
+			
 		<? } ?>
 </div>
