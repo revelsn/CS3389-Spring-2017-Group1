@@ -25,7 +25,7 @@
 							<?PHP
 								
 								
-								 $data = $conn->query('SELECT * FROM users')->fetchAll();
+								 $data = $conn->query('SELECT * FROM users where role = 2')->fetchAll();
 								 if(count($data) > 0){
 									foreach($data as $contact){
 										echo "<tr>";
