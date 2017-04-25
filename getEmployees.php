@@ -45,6 +45,9 @@
 				<div class="col-sm-6 text-right">
 					<a class='btn btn-primary' href='addEmployee.php'><span class="glyphicon glyphicon-plus"></span> Add an Employee</a>
 				</div>
+				<div class="col-sm-6 text-right">
+					<a class='btn btn-primary' href='removeEmployee.php'><span class="glyphicon glyphicon-plus"></span> Downgrade an Employee</a>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-12">
@@ -58,13 +61,15 @@
 							<?PHP
 								
 								
-								$data = $conn->query('SELECT * FROM employees where role = '2'')->fetchAll();
+								$data = $conn->query('SELECT * FROM users where role = '2'')->fetchAll();
 								if(count($data) > 0){
 									foreach($data as $contact){
 										echo "<tr>";
+										echo "<td>".$contact['user_id']"</td>"
 										echo "<td>".$contact['FirstName']." ".$contact['LastName']."</td>";
-										echo "<td>".$contact['Email']"</td>"
-											"<td>".$contact['Role']."</td>";
+										echo "<td>".$contact['email']"</td>"
+										echo "<td>".$contact['phone_number']"</td>"
+										echo "<td>".$contact['role']."</td>";
 										echo "</tr>";
 									}
 								}
