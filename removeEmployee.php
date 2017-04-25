@@ -1,74 +1,46 @@
 <?php
-	session_start(); //start the session. if there's already an exisiting session, it will be continued
-	
-	//re-direct to the login page if needed. We're including this file on the login page or the login_submit page, so check to make sure we're not on the login page or we'd have an infinite re-direct
-	//Currently commented out for testing purposes
-/* 	if(!isset($_SESSION['user_id']) && !stristr($_SERVER["PHP_SELF"], 'login'))
-	{
-		header("Location: login.php");
-	}
-	//include the database connection stuff so we don't have to duplicate it everywhere */
-	include 'db_conn.php';
-	//if(.$session['Role'] != 3)
-	//{}
+	include 'header.php';
+	$_SESSION['pageTitle'] = 'ripEmployee';
+?>
 
+	<?PHP
 	$formHasBeenPosted = count($_POST) > 0;
 	$formInvalid = false;
+
 	if($formHasBeenPosted){
-		//validation and DB update
-		$errors = array();
-		if(strlen($_POST['id']).is_numeric)
-			$errors[] = "Id must be a valid number";
-	
-		
-		if(count($errors) > 0){
-			$formInvalid = true;
-		}
-		else{
-			try{
-				$sql = "update contacts (role = 1) where VALUES(?) = ID";
-				$conn->prepare($sql)->execute([$_POST['ID']]);
-			}
-			catch(PDOException $e){
-				die($e);
-			}
-		}
+		$sql = "UPDATE users SET role = 1 WHERE id = ?";
+		$conn->prepare($sql)->execute([$_POST['id']);
 	}
 ?>
 
 
-<html>
-	<body>
-
-
-		<?PHP
-			
-			
-			$data = $conn->query('SELECT * FROM contacts where role == 2')->fetchAll();
-			if(count($data) > 0){
-				foreach($data as $contact){
-					echo "<tr>";
-					echo "<td>".$contact['ID']"</td>";
-					echo "<td>".$contact['FirstName']." ".$contact['LastName']."</td>";
-					echo "<td>".$contact['Email']"</td>";
-					echo "<td>".$contact['Role']."</td>";
-					echo "</tr>";
+		<div class="container">
+		<?PHP if(!$formHasBeenPosted || $formInvalid){?>
+			<div class="jumbotron">
+				<h3>Enter the item's info below:</h3>
+			</div>
+			<?PHP
+				if($formInvalid){
+					echo '<div class="row"><div class="col-sm-12">';
+					foreach($errors as $error){
+						echo '<div class="alert alert-danger" role="alert">'.$error."</div>";
+					}
+					echo "</div></div>";
 				}
-			}
-			else{
-				echo "<tr><td colspan='4'>No contacts found</td></tr>";
-			}
-			
-			
+			?>
 			<div class="row">
 				<div class="col-sm-12">
-					<form class="form-horizontal" action="removeEmployee.php" method="POST">
+					<form class="form-horizontal" action="addEmployee.php" method="POST">
 						<div class="form-group">
-							<label for="ID" class="col-sm-2 control-label">ID</label>
+							<label for="firstName" class="col-sm-2 control-label">ID</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="ID" name="ID" placeholder="00">
+								<input type="text" class="form-control" id="ID" name="ID" placeholder="ID">
 							</div>
 						</div>
+						
+
+						</div>
+						
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button type="submit" class="btn btn-default">Submit</button>
@@ -77,7 +49,12 @@
 					</form>
 				</div>
 			</div>
-		?>
-							
-	</body>
-</html>
+		<? }else{?>
+			<div class="row">
+				<div class="col-sm-12">
+					<p>Removed successfully, click <a href="home.php">here</a> to go to home</p>
+				</div>
+			</div>
+		<? } ?>
+		</div>
+<?php include 'footer.php';?>
