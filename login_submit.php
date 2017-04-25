@@ -79,7 +79,7 @@
 					{
 						
 						/*** set the session user_id variable ***/
-						$_SESSION['user_id'] = $result['user_id'];//<!-- ADD ROLES-->
+						$_SESSION['user_id'] = $result['user_id'];
 						$_SESSION['user_name'] = $username;
 						$_SESSION['role'] = $result['role'];
 						$_SESSION['orderItems'] = array();

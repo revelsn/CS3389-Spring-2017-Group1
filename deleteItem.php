@@ -1,6 +1,6 @@
 <?php
 	include 'header.php';
-	$_SESSION['pageTitle'] = 'Index Page';
+	$_SESSION['pageTitle'] = 'Delete Item';
 ?>
 	<?PHP
 		try{
