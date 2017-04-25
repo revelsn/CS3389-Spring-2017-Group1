@@ -54,7 +54,7 @@
 							<?PHP
 								if (count($_POST) == 0 || $_POST['searchtype'] == 1)
 								{
-									$sql = "SELECT * FROM cs3389.inventory order by name asc";
+									$sql = "SELECT * FROM inventory order by name asc";
 								
 								}else
 								{

@@ -81,9 +81,11 @@
 						/*** set the session user_id variable ***/
 						$_SESSION['user_id'] = $result['user_id'];//<!-- ADD ROLES-->
 						$_SESSION['user_name'] = $username;
-						$_Session['role'] = $result['role'];
+						$_SESSION['role'] = $result['role'];
+						$_SESSION['orderItems'] = array();
+						$_SESSION['orderAmounts'] = array();
 						/*** tell the user we are logged in ***/
-						$message = 'You are now logged in. Click <a href=\"inventory.php\">here</a> to view our stuff.';
+						$message = 'You are now logged in. Click <a href="inventory.php">here</a> to view our stuff.';
 					}
 
 
