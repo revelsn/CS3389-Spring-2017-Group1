@@ -7,7 +7,8 @@
 			<div class="jumbotron"><h1>Hello!</h1></div>
 			
 			
-				<div class="col-sm-10">
+			<form class="form-horizontal" action = "placeOrder.php" method="POST">
+			<div class="col-sm-10">
 			<div class="col-sm-10">
 			Select Pickup Day
 				<div class="col-sm-12">
@@ -35,16 +36,14 @@
 			</select>
 			</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-6">
-					Cart
-				</div>
-				</div>
+
+
 			<div class="form-group">
 				<div class="col-sm-6 text-right">
-					<a class='btn btn-primary' href='placeOrder.php'><span class="glyphicon glyphicon-plus"></span>Place Order</a>
+					<button type="submit" class="btn btn-default">Place Order</button>
 				</div>
-			
+			</div>
+		</form>
 			<div class="row">	
 				<div class="col-sm-12">
 					<!--<form class="form-horizontal" action="WorkerInventoryView.php" method="POST">

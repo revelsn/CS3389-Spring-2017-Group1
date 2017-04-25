@@ -1,6 +1,35 @@
 <?PHP include 'header.php';?>
 
 	<?PHP
+	 $day = $_POST['Day'];
+	 $time = $_POST['Time'];
+	 $sql = "SELECT * FROM pickupTime WHERE Day=$day and Time = $time";
+	 $data = $conn->query($sql);
+	  foreach($data as $pt){
+	  $amount = $pt['Amount'] + 1;
+	  }
+	   if($amount > "3"){
+	   $throw = true;
+		 echo "Selected Date/time is full please try again";
+		 ?>
+		 <div class="col-sm-12">
+			<p>Timeslot not available, click <a href="viewCart.php">here</a> to go back</p>
+		 </div>
+		 <?PHP
+	   }
+	  
+	   else{
+	   
+		$sql = "UPDATE pickupTime SET Amount= $amount WHERE Day=$day and Time = $time";
+		$conn->query($sql);
+		echo "hi";
+		$throw = false;
+		}?>
+		
+		
+		<?
+		if(!$throw)
+		{
 		$user_id = $_SESSION['user_id'];
 		try{
 			$sql = "INSERT into orders (user_id, time_id, status) values($user_id, 1, 1)";
@@ -49,6 +78,7 @@
 			}
 			
 			echo "<div>Order submitted. Click <a href=\"inventory.php\">here</a> to return to inventory.</div>";
+			}
 		?>
 
 <?PHP include 'footer.php';?>
