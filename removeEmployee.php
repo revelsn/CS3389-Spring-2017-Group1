@@ -53,7 +53,7 @@
 		<? }else{?>
 			<div class="row">
 				<div class="col-sm-12">
-					<p>Removed successfully, click <a href="home.php">here</a> to go to home</p>
+					<p>Removed successfully, click <a href="getEmployee.php">here</a> to go back</p>
 				</div>
 			</div>
 		<? } ?>

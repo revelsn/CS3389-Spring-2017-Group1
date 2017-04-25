@@ -108,7 +108,7 @@
 		<? }else{?>
 			<div class="row">
 				<div class="col-sm-12">
-					<p>Registered successfully, click <a href="home.php">here</a> to go to home</p>
+					<p>Registered successfully, click <a href="getEmployees.php">here</a> to go back</p>
 				</div>
 			</div>
 		<? } ?>
