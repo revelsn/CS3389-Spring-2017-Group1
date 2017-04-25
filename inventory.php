@@ -1,11 +1,29 @@
 <?php
 	include 'header.php';
 	$_SESSION['pageTitle'] = 'View Inventory';
+	$role = $_SESSION['role'];
 ?>
 
 		<div class="container">
 			<div class="jumbotron"><h1>Hello!</h1></div>
 			
+			<?php
+			if($role == 3)
+			{
+			?>
+			<div class="col-sm-6 text-right">
+					<a class='btn btn-primary' href='getEmployees.php'><span class="glyphicon glyphicon-plus"></span>View Employees</a>
+				</div>
+			<?}
+			if($role >= '2')
+			{
+			?>
+			<div class="col-sm-6 text-right">
+					<a class='btn btn-primary' href='WorkerInventoryView.php'><span class="glyphicon glyphicon-plus"></span>Go To Employee Inventory View</a>
+				</div>
+			<?}?>
+			
+				
 			<div class="row">
 				<div class="col-sm-6">
 					Inventory

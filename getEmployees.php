@@ -6,7 +6,12 @@
 
 
 		<div class="container">
-			
+									<div class="col-sm-6 text-right">
+					<a class='btn btn-primary' href='inventory.php'><span class="glyphicon glyphicon-plus"></span>Customer Inventory View</a>
+				</div>
+							<div class="col-sm-6 text-right">
+					<a class='btn btn-primary' href='WorkerInventoryView.php'><span class="glyphicon glyphicon-plus"></span>Go To Employee Inventory View</a>
+				</div>
 			
 			<div class="row">
 				

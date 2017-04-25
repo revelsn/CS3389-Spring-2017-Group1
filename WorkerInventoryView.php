@@ -5,10 +5,12 @@
 
 		<div class="container">
 			<div class="jumbotron"><h1>Hello!</h1></div>
+						<div class="col-sm-6 text-right">
+					<a class='btn btn-primary' href='inventory.php'><span class="glyphicon glyphicon-plus"></span>Customer Inventory View</a>
+				</div>
 			
 			<div class="row">
 				<div class="col-sm-6">
-					Inventory
 				</div>
 				<div class="col-sm-6 text-right">
 					<a class='btn btn-primary' href='addItem.php'><span class="glyphicon glyphicon-plus"></span> Add an item</a>

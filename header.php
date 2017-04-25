@@ -19,6 +19,10 @@
 	</head>
 <body>
 
+			<div class="col-sm-6 text-right">
+					<a class='btn btn-primary' href='logOut.php'><span class="glyphicon glyphicon-plus"></span>Log Out</a>
+				</div>
+
 <?php
 /*if($_session['role'] == 3)
 {
