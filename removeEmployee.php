@@ -4,20 +4,21 @@
 ?>
 
 	<?PHP
-	$formHasBeenPosted = count($_POST) > 0;
-	$formInvalid = false;
+	 $formHasBeenPosted = count($_POST) > 0;
+	 $formInvalid = false;
 
-	if($formHasBeenPosted){
-		$sql = "UPDATE users SET role = 1 WHERE id = ?";
-		$conn->prepare($sql)->execute([$_POST['id']);
-	}
+	 if($formHasBeenPosted){
+	 $id = $_POST['ID'];
+		 $sql = "UPDATE users SET role = 1 WHERE user_id=$id";
+		  $conn->query($sql);
+	  }
 ?>
 
 
 		<div class="container">
 		<?PHP if(!$formHasBeenPosted || $formInvalid){?>
 			<div class="jumbotron">
-				<h3>Enter the item's info below:</h3>
+				<h3>Enter the employees id below:</h3>
 			</div>
 			<?PHP
 				if($formInvalid){
@@ -30,7 +31,7 @@
 			?>
 			<div class="row">
 				<div class="col-sm-12">
-					<form class="form-horizontal" action="addEmployee.php" method="POST">
+					<form class="form-horizontal" action="removeEmployee.php" method="POST">
 						<div class="form-group">
 							<label for="firstName" class="col-sm-2 control-label">ID</label>
 							<div class="col-sm-10">
