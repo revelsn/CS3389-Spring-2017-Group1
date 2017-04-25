@@ -76,7 +76,8 @@
 					die($e);
 				}
 			}
-			
+			$_SESSION['orderItems'] = array();
+			$_SESSION['orderAmounts'] = array();
 			echo "<div>Order submitted. Click <a href=\"inventory.php\">here</a> to return to inventory.</div>";
 			}
 		?>
