@@ -1,18 +1,8 @@
-<html>
-	<header>
-		<title> Wiggly Piggly: Grupo Dos </title>
-		<!--LoginPage-->
-	</header>
-	<!-- -->
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<!-- -->
-	<body style="font-family:georgian;">
-		<nav class="navbar navbar-transparent">
+		<?php
+			$_SESSION['pageTitle'] = 'login';
+			include 'header.php';
+		?>
+		<!--<nav class="navbar navbar-transparent">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">Wiggly Piggly</a>
@@ -27,13 +17,13 @@
 					<li><a href="file:///C:/MAMP/htdocs/Grupo%20Uno/Login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 				</ul>
 			</div>
-		</nav>
+		</nav> --!>
 		<!--LOGIN-->
 		<?php
 			//To catch and tell what the errors are while running.
-			ini_set('display_errors', 1);
+			/*ini_set('display_errors', 1);
 			ini_set('display_startup_errors', 1);
-			error_reporting(E_ALL);
+			error_reporting(E_ALL);*/
 			
 			include 'header.php';
 			$_SESSION['pageTitle'] = 'Login';
@@ -68,7 +58,7 @@
 				try
 				{
 					/*** prepare the select statement ***/
-					$stmt = $db->prepare("SELECT user_id, psswdHash FROM authentication WHERE username = :username");// <!--DATABASE VARIABLE AS AT THE TOP & ADD ROLE-->
+					$stmt = $conn->prepare("SELECT user_id, psswdHash, role FROM users WHERE email = :username");// <!--DATABASE VARIABLE AS AT THE TOP & ADD ROLE-->
 
 					/*** bind the parameters ***/
 					$stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -89,10 +79,11 @@
 					{
 						
 						/*** set the session user_id variable ***/
-						$_SESSION['user_id'] = $result['id'];//<!-- ADD ROLES-->
+						$_SESSION['user_id'] = $result['user_id'];//<!-- ADD ROLES-->
 						$_SESSION['user_name'] = $username;
+						$_Session['role'] = $result['role'];
 						/*** tell the user we are logged in ***/
-						$message = 'You are now logged in';
+						$message = 'You are now logged in. Click <a href=\"inventory.php\">here</a> to view our stuff.';
 					}
 
 
@@ -102,10 +93,8 @@
 					/*** if we are here, something has gone wrong with the database ***/
 					$message = 'We are unable to process your request. Please try again later';
 				}
-				$db = null;
+				$conn = null;
 			}
 		?>
 			<p><?php echo $message; ?></p>
 		<?php include 'footer.php';?>
-</html>
-	</body>
