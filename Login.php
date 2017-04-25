@@ -22,6 +22,7 @@
 		<div class="col-md-12"> 
 
 			<center><img src="Wiggly.jpg" alt="Mr. Piggly"></center>
+			<div>A childhood picture of our founder, Nick Revels</div>
 			<form class="form-horizontal" action="login_submit.php" method="post">
 				<div class="row">
 					<div class="col-md-6 col-md-offset-3">
